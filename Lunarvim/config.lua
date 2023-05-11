@@ -57,6 +57,9 @@ lvim.keys.insert_mode["<C-q>"] = ":q<cr>" -- or vim.keymap.set("n", "<C-q>", ":q
 lvim.keys.normal_mode["<,-v>"] = ":vsplit<CR>"
 lvim.keys.normal_mode["<,-h>"] = ":split<CR>"
 
+
+
+
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
 -- local _, actions = pcall(require, "telescope.actions")
@@ -123,7 +126,6 @@ lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enable = true
 
 
-
 -- Additional Plugins
 --
 lvim.plugins = {
@@ -140,6 +142,68 @@ lvim.plugins = {
   { 'nyoom-engineering/oxocarbon.nvim' },
   { "arturgoms/moonbow.nvim" },
 
+  -- noicer ui
+  {
+    "folke/noice.nvim",
+    config = function()
+      require("noice").setup({
+        -- add any options here
+        lsp = {
+          override = {
+            -- override the default lsp markdown formatter with Noice
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+            -- override the lsp markdown formatter with Noice
+            ["vim.lsp.util.stylize_markdown"] = false,
+            -- override cmp documentation with Noice (needs the other options to work)
+            ["cmp.entry.get_documentation"] = false,
+            ["config.lsp.hover.enabled"] = false
+          },
+          hover = {
+            enabled = false
+          },
+          signature = {
+            enabled = false
+          },
+        },
+        dependencies = {
+          -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+          "MunifTanjim/nui.nvim",
+          -- OPTIONAL:
+          --   `nvim-notify` is only needed, if you want to use the notification view.
+          --   If not available, we use `mini` as the fallback
+          "rcarriga/nvim-notify",
+        }
+
+      })
+    end,
+  },
+
+  -- NV Term
+  {
+    "NvChad/nvterm",
+    config = function()
+      require("nvterm").setup()
+
+      local terminal = require("nvterm.terminal")
+
+      local ft_cmds = {
+        --python = "python3 " .. vim.fn.expand('%'),
+        --...
+        --<your commands here>
+      }
+      local toggle_modes = { 'n', 't' }
+      local mappings = {
+        { 'n',          '<S-t>', function() require("nvterm.terminal").send(ft_cmds[vim.bo.filetype]) end },
+        { toggle_modes, '<A-h>', function() require("nvterm.terminal").toggle('horizontal') end },
+        { toggle_modes, '<A-v>', function() require("nvterm.terminal").toggle('vertical') end },
+        { toggle_modes, '<A-i>', function() require("nvterm.terminal").toggle('float') end },
+      }
+      local opts = { noremap = true, silent = true }
+      for _, mapping in ipairs(mappings) do
+        vim.keymap.set(mapping[1], mapping[2], mapping[3], opts)
+      end
+    end,
+  },
 
   -- Nvim Surround tags
   {
