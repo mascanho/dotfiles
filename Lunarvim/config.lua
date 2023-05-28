@@ -25,7 +25,8 @@ vim.api.nvim_command("autocmd FileType markdown setlocal syntax=markdown")
 
 -- Mascanho's keymaps
 vim.keymap.set("i", "<C-s>", "<ESC> :w<CR>")
-vim.keymap.set("n", "<S-s>s", ":split<CR> :terminal npm run dev<CR>")
+-- vim.keymap.set("n", "<S-s>s", ":split<CR> :terminal npm run dev<CR>")
+
 
 -- general
 lvim.log.level = "warn"
@@ -42,9 +43,13 @@ lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+lvim.keys.normal_mode["<Tab>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-t>"] = ":ToggleTerm<CR>"
 lvim.keys.normal_mode["<C-->"] = ":vsplit<cr>"
+
+
 lvim.keys.insert_mode["<C-s"] = ":w<CR>"
+
 -- unmap a default keymapping
 -- vim.keymap.del("n", "<C-Up>")
 -- override a default keymapping
@@ -57,7 +62,16 @@ lvim.keys.insert_mode["<C-q>"] = ":q<cr>" -- or vim.keymap.set("n", "<C-q>", ":q
 lvim.keys.normal_mode["<,-v>"] = ":vsplit<CR>"
 lvim.keys.normal_mode["<,-h>"] = ":split<CR>"
 
+-- Toggle terminal
+lvim.keys.normal_mode["<C-t>"] = ":ToggleTerm<CR>"
+--horizontal terminal
+lvim.keys.normal_mode["<C-h>"] = ":ToggleTerm direction=horizontal<CR>"
+--vertical terminal
+lvim.keys.normal_mode["<C-v>"] = ":ToggleTerm direction=vertical<CR>"
 
+-- move lines up and down like VScode
+lvim.keys.normal_mode["<C-j>"] = ":m .+1<CR>==" -- move down up
+lvim.keys.normal_mode["<C-k>"] = ":m .-2<CR>==" -- move line up
 
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
@@ -142,7 +156,15 @@ lvim.plugins = {
   { 'nyoom-engineering/oxocarbon.nvim' },
   { "arturgoms/moonbow.nvim" },
 
-  -- noicer ui
+  -- Markdown Preview
+  { "ellisonleao/glow.nvim",           config = true,     cmd = "Glow" }, -- noicer ui
+
+
+  -- Animations
+
+  { 'karb94/neoscroll.nvim' },
+
+
   {
     "folke/noice.nvim",
     config = function()
