@@ -26,16 +26,31 @@ vim.api.nvim_command("autocmd FileType markdown setlocal syntax=markdown")
 -- Mascanho's keymaps
 vim.keymap.set("i", "<C-s>", "<ESC> :w<CR>")
 -- vim.keymap.set("n", "<S-s>s", ":split<CR> :terminal npm run dev<CR>")
+vim.keymap.set("n", "<cr>", "i<CR>")
+vim.keymap.set("i", "<C-BS>", "<Esc>cvb", {})
 
-
--- general
+vim.keymap.set("n", "U", "<C-r>")
+-- general oieoifwef
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = true
-lvim.colorscheme = "onedark_dark"
+lvim.colorscheme = "gruvbox-material"
 lvim.transparent_window = false
+
+-- Yank into system clipboard
+vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y') -- yank motion
+vim.keymap.set({ 'n', 'v' }, '<leader>Y', '"+Y') -- yank line
+
+-- Delete into system clipboard
+vim.keymap.set({ 'n', 'v' }, '<leader>d', '"+d') -- delete motion
+vim.keymap.set({ 'n', 'v' }, '<leader>D', '"+D') -- delete line
+
+-- Paste from system clipboard
+vim.keymap.set('n', '<leader>p', '"+p') -- paste after cursor
+vim.keymap.set('n', '<leader>P', '"+P') -- paste before cursor
 
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
+
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -47,6 +62,10 @@ lvim.keys.normal_mode["<Tab>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-t>"] = ":ToggleTerm<CR>"
 lvim.keys.normal_mode["<C-->"] = ":vsplit<cr>"
 
+lvim.builtin.which_key.mappings["C"] = {
+  name = "Python",
+  c = { "<cmd>lua require('swenv.api').pick_venv()<cr>", "Choose Env" },
+}
 
 lvim.keys.insert_mode["<C-s"] = ":w<CR>"
 
@@ -63,11 +82,11 @@ lvim.keys.normal_mode["<,-v>"] = ":vsplit<CR>"
 lvim.keys.normal_mode["<,-h>"] = ":split<CR>"
 
 -- Toggle terminal
-lvim.keys.normal_mode["<C-t>"] = ":ToggleTerm<CR>"
+-- lvim.keys.normal_mode["<C-t>"] = ":ToggleTerm<CR>"
 --horizontal terminal
-lvim.keys.normal_mode["<C-h>"] = ":ToggleTerm direction=horizontal<CR>"
+lvim.keys.normal_mode["<C-t>"] = ":ToggleTerm direction=horizontal<CR>"
 --vertical terminal
-lvim.keys.normal_mode["<C-v>"] = ":ToggleTerm direction=vertical<CR>"
+lvim.keys.normal_mode["<S-2>"] = ":ToggleTerm direction=vertical<CR>"
 
 -- move lines up and down like VScode
 lvim.keys.normal_mode["<C-j>"] = ":m .+1<CR>==" -- move down up
@@ -97,7 +116,7 @@ lvim.keys.normal_mode["<C-k>"] = ":m .-2<CR>==" -- move line up
 -- lvim.builtin.theme.options.style = "storm"
 
 -- Use which-key to add extra bindings with the leader-key prefix
--- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
+lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 -- lvim.builtin.which_key.mappings["t"] = {
 --   name = "+Trouble",
 --   r = { "<cmd>Trouble lsp_references<cr>", "References" },
@@ -134,6 +153,7 @@ lvim.builtin.treesitter.ensure_installed = {
   "java",
   "yaml",
   "markdown",
+  "prisma"
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -144,6 +164,9 @@ lvim.builtin.treesitter.highlight.enable = true
 --
 lvim.plugins = {
   -- Theme
+  {
+    "sainnhe/gruvbox-material"
+  },
   {
     "olimorris/onedarkpro.nvim",
     priority = 1000 -- Ensure it loads first
@@ -156,8 +179,33 @@ lvim.plugins = {
   { 'nyoom-engineering/oxocarbon.nvim' },
   { "arturgoms/moonbow.nvim" },
 
+  -- Fast finder system
+  {
+    "kevinhwang91/rnvimr",
+    cmd = "RnvimrToggle",
+    config = function()
+      vim.g.rnvimr_draw_border = 1
+      vim.g.rnvimr_pick_enable = 1
+      vim.g.rnvimr_bw_enable = 1
+    end,
+  },
+
+
+
+
+
+  -- Prisma syntax highlighting
+  { "prisma/vim-prisma" },
+  -- { "sheerun/vim-polyglot" },
+  { "preservim/vim-markdown" },
+
+  -- Python environment
+  { "ChristianChiarulli/swenv.nvim",
+    "stevearc/dressing.nvim",
+  },
+
   -- Markdown Preview
-  { "ellisonleao/glow.nvim",           config = true,     cmd = "Glow" }, -- noicer ui
+  { "ellisonleao/glow.nvim", config = true, cmd = "Glow" }, -- noicer ui
 
 
   -- Animations
@@ -200,44 +248,6 @@ lvim.plugins = {
     end,
   },
 
-  -- NV Term
-  {
-    "NvChad/nvterm",
-    config = function()
-      require("nvterm").setup()
-
-      local terminal = require("nvterm.terminal")
-
-      local ft_cmds = {
-        --python = "python3 " .. vim.fn.expand('%'),
-        --...
-        --<your commands here>
-      }
-      local toggle_modes = { 'n', 't' }
-      local mappings = {
-        { 'n',          '<S-t>', function() require("nvterm.terminal").send(ft_cmds[vim.bo.filetype]) end },
-        { toggle_modes, '<A-h>', function() require("nvterm.terminal").toggle('horizontal') end },
-        { toggle_modes, '<A-v>', function() require("nvterm.terminal").toggle('vertical') end },
-        { toggle_modes, '<A-i>', function() require("nvterm.terminal").toggle('float') end },
-      }
-      local opts = { noremap = true, silent = true }
-      for _, mapping in ipairs(mappings) do
-        vim.keymap.set(mapping[1], mapping[2], mapping[3], opts)
-      end
-    end,
-  },
-
-  -- Nvim Surround tags
-  {
-    "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-      })
-    end
-  },
 
   -- Navbudy, Ranger-like for symbols
   {
@@ -311,10 +321,10 @@ lvim.plugins = {
     end,
   }
   ,
-  { "folke/lsp-colors.nvim" },
+  -- { "folke/lsp-colors.nvim" },
 
 
-  { 'sheerun/vim-polyglot' }, -- Syntax Highlighting
+  -- { 'sheerun/vim-polyglot' }, -- Syntax Highlighting
 
   {
     "neoclide/coc.nvim",
@@ -329,6 +339,7 @@ lvim.plugins = {
         hi link CocInlayHint Comment
         call coc#add_extension('coc-pyright')
         call coc#add_extension('coc-snippets')
+        " call coc#add_extension('prismals')
         " CocUninstall coc-sh
         " CocUninstall coc-clangd
         " CocUninstall coc-vimlsp
@@ -417,7 +428,7 @@ lvim.plugins = {
   "Exafunction/codeium.vim",
   config = function()
     -- Change '<C-g>' here to any keycode you like.
-    vim.keymap.set("i", "<C-g>", function()
+    vim.keymap.set("i", "<C-[>", function()
       return vim.fn["codeium#Accept"]()
     end, { expr = true })
     vim.keymap.set("i", "<c-;>", function()
@@ -431,16 +442,21 @@ lvim.plugins = {
     end, { expr = true })
   end,
 }
+
+
+
+-- lvim.builtin.treesitter.rainbow.enable = true
 require("tailwindcss-colors").setup({})
 require("luasnip").filetype_extend("javascript", { "html" })
 -- generic LSP settings
 
 -- -- make sure server will always be installed even if the server is in skipped_servers list
 -- lvim.lsp.installer.setup.ensure_installed = {
---     "sumneko_lua",
---     "jsonls",
+-- "sumneko_lua",
+-- "jsonls",
+-- "prisma"
 -- }
--- -- change UI setting of `LspInstallInfo`
+-- change UI setting of `LspInstallInfo`
 -- -- see <https://github.com/williamboman/nvim-lsp-installer#default-configuration>
 -- lvim.lsp.installer.setup.ui.check_outdated_servers_on_open = false
 -- lvim.lsp.installer.setup.ui.border = "rounded"
@@ -609,3 +625,4 @@ linters.setup({
     filetypes = { "javascript", "typescript", "html" },
   },
 })
+
