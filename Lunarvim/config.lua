@@ -1,4 +1,5 @@
 require("mascanho.options")
+require("mascanho.plugins.typescript")
 --[[
 lvim is the global options object
 this is
@@ -30,10 +31,15 @@ vim.keymap.set("n", "<cr>", "i<CR>")
 vim.keymap.set("i", "<C-BS>", "<Esc>cvb", {})
 
 vim.keymap.set("n", "U", "<C-r>")
--- general oieoifwef
+
+-- F# Keys
+vim.keymap.set('n', '<F6>', ":w <bar> exec ':terminal '.shellescape('%:r')<CR>")
+
+
+-- general
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = true
-lvim.colorscheme = "gruvbox-material"
+lvim.colorscheme = "rasmus"
 lvim.transparent_window = false
 
 -- Yank into system clipboard
@@ -135,7 +141,7 @@ lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Project
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
-lvim.builtin.nvimtree.setup.view.side = "right"
+lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
 
 -- if you don't want all the parsers change this to a table of the ones you want
@@ -163,7 +169,18 @@ lvim.builtin.treesitter.highlight.enable = true
 -- Additional Plugins
 --
 lvim.plugins = {
-  -- Theme
+  -- Themes
+  { 'kvrohit/mellow.nvim' },
+  { 'ramojus/mellifluous.nvim' },
+  { 'kvrohit/rasmus.nvim' },
+  { 'rmehri02/onenord.nvim' },
+  { 'Everblush/nvim' },
+  { 'ldelossa/vimdark' },
+  { 'kvrohit/substrata.nvim' },
+  { 'yashguptaz/calvera-dark.nvim' },
+  { "sainnhe/everforest" },
+  { "rafamadriz/neon" },
+  { 'Abstract-IDE/Abstract-cs' },
   {
     "sainnhe/gruvbox-material"
   },
@@ -179,6 +196,14 @@ lvim.plugins = {
   { 'nyoom-engineering/oxocarbon.nvim' },
   { "arturgoms/moonbow.nvim" },
 
+  -- Blocks highlighted in the code
+  {
+    "HampusHauffman/block.nvim",
+    config = function()
+      require("block").setup({})
+    end
+  },
+
   -- Fast finder system
   {
     "kevinhwang91/rnvimr",
@@ -190,14 +215,11 @@ lvim.plugins = {
     end,
   },
 
-
-
-
-
   -- Prisma syntax highlighting
   { "prisma/vim-prisma" },
-  -- { "sheerun/vim-polyglot" },
   { "preservim/vim-markdown" },
+
+  -- { "sheerun/vim-polyglot" },
 
   -- Python environment
   { "ChristianChiarulli/swenv.nvim",
@@ -205,7 +227,7 @@ lvim.plugins = {
   },
 
   -- Markdown Preview
-  { "ellisonleao/glow.nvim", config = true, cmd = "Glow" }, -- noicer ui
+  -- { "ellisonleao/glow.nvim", config = true, cmd = "Glow" }, -- noicer ui
 
 
   -- Animations
@@ -324,7 +346,6 @@ lvim.plugins = {
   -- { "folke/lsp-colors.nvim" },
 
 
-  -- { 'sheerun/vim-polyglot' }, -- Syntax Highlighting
 
   {
     "neoclide/coc.nvim",
@@ -625,4 +646,5 @@ linters.setup({
     filetypes = { "javascript", "typescript", "html" },
   },
 })
+
 
