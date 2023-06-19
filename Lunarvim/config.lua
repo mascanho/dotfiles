@@ -170,6 +170,7 @@ lvim.builtin.treesitter.highlight.enable = true
 --
 lvim.plugins = {
   -- Themes
+  { 'rockerBOO/boo-colorscheme-nvim' },
   { 'kvrohit/mellow.nvim' },
   { 'ramojus/mellifluous.nvim' },
   { 'kvrohit/rasmus.nvim' },
