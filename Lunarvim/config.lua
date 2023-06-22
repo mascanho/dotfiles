@@ -170,11 +170,10 @@ lvim.builtin.treesitter.highlight.enable = true
 --
 lvim.plugins = {
   -- Themes
-  { 'rockerBOO/boo-colorscheme-nvim' },
   { 'kvrohit/mellow.nvim' },
   { 'ramojus/mellifluous.nvim' },
   { 'kvrohit/rasmus.nvim' },
-  { 'rmehri02/onenord.nvim' },
+  -- { 'rmehri02/onenord.nvim' },
   { 'Everblush/nvim' },
   { 'ldelossa/vimdark' },
   { 'kvrohit/substrata.nvim' },
@@ -196,6 +195,45 @@ lvim.plugins = {
   { "rebelot/kanagawa.nvim" },
   { 'nyoom-engineering/oxocarbon.nvim' },
   { "arturgoms/moonbow.nvim" },
+
+
+  --- Typescript faster server
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
+
+  -- Files in the buffer
+  {
+    "echasnovski/mini.files",
+    opts = {
+      windows = {
+        preview = true,
+      },
+      options = {
+        -- Whether to use for editing directories
+        -- Disabled by default in LazyVim because neo-tree is used for that
+        use_as_default_explorer = false,
+      },
+    },
+    keys = {
+      {
+        "<leader>mf",
+        function()
+          require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
+        end,
+        desc = "Open mini.files (directory of current file)",
+      },
+      {
+        "<leader>fM",
+        function()
+          require("mini.files").open(vim.loop.cwd(), true)
+        end,
+        desc = "Open mini.files (cwd)",
+      },
+    },
+  },
 
   -- Blocks highlighted in the code
   {
@@ -647,5 +685,3 @@ linters.setup({
     filetypes = { "javascript", "typescript", "html" },
   },
 })
-
-
