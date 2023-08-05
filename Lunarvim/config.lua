@@ -33,8 +33,11 @@ vim.keymap.set("i", "<C-BS>", "<Esc>cvb", {})
 vim.keymap.set("n", "U", "<C-r>")
 
 -- F# Keys
-vim.keymap.set('n', '<F6>', ":w <bar> exec ':terminal '.shellescape('%:r')<CR>")
-
+vim.keymap.set('n', '<F2>', ":tabnew<CR>")
+vim.keymap.set('n', '<F12>', ":tabclose<CR>")
+vim.keymap.set('n', '<F3>', ":terminal<CR>")
+vim.keymap.set('n', '<F5>', ":tabprev<CR>")
+vim.keymap.set('n', '<F8>', ":tabnext<CR>")
 
 -- general
 lvim.log.level = "warn"
@@ -170,6 +173,15 @@ lvim.builtin.treesitter.highlight.enable = true
 --
 lvim.plugins = {
   -- Themes
+  {
+    "xero/miasma.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd("colorscheme miasma")
+    end,
+  },
+  { "sekke276/dark_flat.nvim" },
   { 'kvrohit/mellow.nvim' },
   { 'ramojus/mellifluous.nvim' },
   { 'kvrohit/rasmus.nvim' },
@@ -196,7 +208,52 @@ lvim.plugins = {
   { 'nyoom-engineering/oxocarbon.nvim' },
   { "arturgoms/moonbow.nvim" },
 
+  -- TailwindCSS window properties
+  {
+    "MaximilianLloyd/tw-values.nvim",
+    keys = {
+      { "<leader>sv", "<cmd>TWValues<cr>", desc = "Show tailwind CSS values" },
+    },
+    opts = {
+      border = "rounded",         -- Valid window border style,
+      show_unknown_classes = true -- Shows the unknown classes popup
+    }
+  },
 
+  --Flash
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {},
+    keys = {
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          -- default options: exact mode, multi window, all directions, with a backdrop
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "S",
+        mode = { "n", "o", "x" },
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        mode = "o",
+        function()
+          require("flash").remote()
+        end,
+        desc = "Remote Flash",
+      },
+    },
+  },
   --- Typescript faster server
   {
     "pmizio/typescript-tools.nvim",
@@ -488,7 +545,7 @@ lvim.plugins = {
   "Exafunction/codeium.vim",
   config = function()
     -- Change '<C-g>' here to any keycode you like.
-    vim.keymap.set("i", "<C-[>", function()
+    vim.keymap.set("i", "<C-g>", function()
       return vim.fn["codeium#Accept"]()
     end, { expr = true })
     vim.keymap.set("i", "<c-;>", function()
@@ -507,7 +564,15 @@ lvim.plugins = {
 
 -- lvim.builtin.treesitter.rainbow.enable = true
 require("tailwindcss-colors").setup({})
+
+local luasnip = require "luasnip"
+
+luasnip.filetype_extend("javascriptreact", { "html" })
+
+require("luasnip/loaders/from_vscode").lazy_load()
+
 require("luasnip").filetype_extend("javascript", { "html" })
+require("luasnip").filetype_extend("javascriptreact", { "html" })
 -- generic LSP settings
 
 -- -- make sure server will always be installed even if the server is in skipped_servers list
