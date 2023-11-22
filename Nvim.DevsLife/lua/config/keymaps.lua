@@ -65,3 +65,6 @@ vim.keymap.set("n", "<F8>", ":tabnext<CR>")
 -- Quit Keys
 vim.keymap.set("n", "<C-q>", ":q<CR>")
 vim.keymap.set("n", "<C-s>", ":w<CR>")
+
+-- Arena Keys
+vim.keymap.set("n", "<F9>", ":ArenaToggle<CR>")

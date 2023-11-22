@@ -56,7 +56,6 @@ return {
 	{ "sainnhe/edge" },
 	{ "sainnhe/sonokai" },
 	{ "bluz71/vim-nightfly-colors" },
-	{ "catppuccino/nvim" },
 	{ "bluz71/vim-moonfly-colors" },
 	{ "bluz71/vim-nightfly-guicolors" },
 	{ "NLKNguyen/papercolor-theme" },
@@ -70,4 +69,21 @@ return {
 		requires = "rktjmp/lush.nvim",
 	},
 	{ "embark-theme/vim", as = "embark" },
+	{
+		"rockyzhang24/arctic.nvim",
+		dependencies = { "rktjmp/lush.nvim" },
+		name = "arctic",
+		branch = "main",
+		priority = 1000,
+		config = function()
+			vim.cmd("colorscheme arctic")
+		end,
+	},
+	{
+		"nyoom-engineering/oxocarbon.nvim",
+		-- Add in any other configuration;
+		--   event = foo,
+		--   config = bar
+		--   end,
+	},
 }

@@ -1,17 +1,17 @@
 local WIDE_HEIGHT = 40
 
-local cmp = require("cmp")
-cmp.setup({
-	-- ...
-	window = {
-		completion = cmp.config.window.bordered(),
-		documentation = cmp.config.window.bordered({
-			documentation = {
-				border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-			},
-		}),
-	}, -- ...
-})
+-- local cmp = require("cmp")
+-- cmp.setup({
+-- 	-- ...
+-- 	window = {
+-- 		completion = cmp.config.window.bordered(),
+-- 		documentation = cmp.config.window.bordered({
+-- 			documentation = {
+-- 				border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+-- 			},
+-- 		}),
+-- 	}, -- ...
+-- })
 
 return {
 	-- Create annotations with one keybind, and jump your cursor in the inserted annotation
@@ -102,13 +102,15 @@ return {
 		},
 	},
 
-	{
-		"nvim-cmp",
-		dependencies = { "hrsh7th/cmp-emoji" },
-		opts = function(_, opts)
-			table.insert(opts.sources, { name = "emoji" })
-		end,
-	},
+	-- CMP
+
+	-- {
+	-- 	"nvim-cmp",
+	-- 	dependencies = { "hrsh7th/cmp-emoji" },
+	-- 	opts = function(_, opts)
+	-- 		table.insert(opts.sources, { name = "emoji" })
+	-- 	end,
+	-- },
 
 	-- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
 	{
@@ -142,4 +144,7 @@ return {
 
 	-- Prisma Code Highlight
 	{ "prisma/vim-prisma" },
+
+	-- COC NEOVIM
+	-- { "neoclide/coc.nvim", branch = "release" },
 }
