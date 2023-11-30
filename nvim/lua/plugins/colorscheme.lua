@@ -1,71 +1,114 @@
 return {
-  -- add onedark
-  {
-    -- "navarasu/onedark.nvim",
-    "aymanbagabas/onedark.nvim",
-    -- dir = "~/Workspace/onedark.nvim",
-    priority = 1000, -- Ensure it loads first
-    lazy = true,
-    config = function()
-      require("onedark").setup({
-        transparent = false,
-        style = "dark",
-        lualine = {
-          transparent = true,
-        },
-      })
-    end,
-  },
+	{
+		"craftzdog/solarized-osaka.nvim",
+		lazy = true,
+		priority = 0,
+		opts = function()
+			return {
+				transparent = true,
+			}
+		end,
+	},
+	-- Themes
+	{
+		"rose-pine/neovim",
+		name = "rose-pine",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.cmd("colorscheme rose-pine")
+		end,
+	},
+	{
+		"xero/miasma.nvim",
+		lazy = false,
+	},
+	{ "sekke276/dark_flat.nvim" },
+	{ "kvrohit/mellow.nvim" },
+	{ "ramojus/mellifluous.nvim" },
+	{ "kvrohit/rasmus.nvim" },
+	-- { 'rmehri02/onenord.nvim' },
+	{ "Everblush/nvim" },
+	{ "ldelossa/vimdark" },
+	{ "kvrohit/substrata.nvim" },
+	{ "yashguptaz/calvera-dark.nvim" },
+	{ "sainnhe/everforest" },
+	{ "rafamadriz/neon" },
+	{ "Abstract-IDE/Abstract-cs" },
+	{
+		"sainnhe/gruvbox-material",
+	},
+	{
+		"olimorris/onedarkpro.nvim",
+	},
+	{ "projekt0n/github-nvim-theme", version = "v0.0.7" },
+	{ "marko-cerovac/material.nvim" },
+	{ "Allianaab2m/penumbra.nvim" },
+	{ "ful1e5/onedark.nvim" },
+	{ "rebelot/kanagawa.nvim" },
+	{ "nyoom-engineering/oxocarbon.nvim" },
+	{ "arturgoms/moonbow.nvim" },
+	{ "EdenEast/nightfox.nvim" }, -- lazy
+	{ "catppuccin/nvim", name = "catppuccin" },
+	{ "folke/tokyonight.nvim" },
+	{ "sainnhe/edge" },
+	{ "sainnhe/sonokai" },
+	{ "bluz71/vim-nightfly-colors" },
+	{ "bluz71/vim-moonfly-colors" },
+	{ "bluz71/vim-nightfly-guicolors" },
+	{ "NLKNguyen/papercolor-theme" },
+	{ "Mofiqul/dracula.nvim" },
+	{ "romainl/Apprentice" },
+	{
+		"mcchrish/zenbones.nvim",
+		-- Optionally install Lush. Allows for more configuration or extending the colorscheme
+		-- If you don't want to install lush, make sure to set g:zenbones_compat = 1
+		-- In Vim, compat mode is turned on as Lush only works in Neovim.
+		requires = "rktjmp/lush.nvim",
+	},
+	{ "embark-theme/vim", as = "embark" },
+	{
+		"rockyzhang24/arctic.nvim",
+		dependencies = { "rktjmp/lush.nvim" },
+		name = "arctic",
+		branch = "main",
+		priority = 1000,
+	},
+	{
+		"nyoom-engineering/oxocarbon.nvim",
+	},
 
-  {
-    "RRethy/nvim-base16",
-    -- lazy = true,
-  },
+	-- Lua
 
-  {
-    "folke/tokyonight.nvim",
-    enabled = true,
-  },
+	{
+		"olivercederborg/poimandres.nvim",
+		lazy = false,
+		-- priority = 1000,
+		config = function()
+			require("poimandres").setup({
+				-- leave this setup function empty for default config
+				-- or refer to the configuration section
+				-- for configuration options
+			})
+		end,
+	},
+	{
+		"AlexvZyl/nordic.nvim",
+		lazy = false,
+		priority = 1000,
+		-- config = function()
+		--     require 'nordic' .load()
+		-- end
+	},
+	{
+		"luisiacc/gruvbox-baby",
+	},
+	{
+		"nyngwang/nvimgelion",
+		config = function()
+			-- do whatever you want for further customization~
+		end,
+	},
 
-  {
-    "catppuccin/nvim",
-    enabled = false,
-  },
-
-  -- Configure LazyVim to load onedark
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "onedark",
-    },
-  },
+	{ "cryptomilk/nightcity.nvim", version = "*" },
 }
-
--- {
---   primary = {
---     background = "#171717";
---     foreground = "#C5C8C6";
---   };
---
---   normal = {
---     black = "#282a2e";
---     blue = "#8056FF";
---     cyan = "#04D7D7";
---     green = "#31BB71";
---     magenta = "#ED61D7";
---     red = "#D74E6F";
---     yellow = "#D3E561";
---     white = "#C5C8C6";
---   };
---
---   bright = {
---     black = "#4B4B4B";
---     red = "#FE5F86";
---     green = "#00D787";
---     blue = "#8F69FF";
---     yellow = "#EBFF71";
---     magenta = "#FF7AEA";
---     cyan = "#00FEFE";
---     white = "#FFFFFF";
---   };
--- }
