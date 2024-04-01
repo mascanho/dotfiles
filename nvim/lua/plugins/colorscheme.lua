@@ -1,5 +1,27 @@
 return {
 	{
+		"b0o/lavi.nvim",
+		dependencies = { "rktjmp/lush.nvim" },
+	},
+	{
+		"kevinm6/kurayami.nvim",
+		event = "VimEnter", -- load plugin on VimEnter or
+		-- lazy = false,                  --   don't lazy load plugin
+		---Use this config to override some highlights
+		-- config = function(_, opts)
+		---override highlights passing table
+		---@usage
+		-- opts.override = {
+		--  Number = { fg = "#015a60" }
+		-- }
+		-- require("kurayami").setup(opts)
+		-- end
+	},
+	{ "dasupradyumna/midnight.nvim", lazy = false, priority = 1000 },
+	{
+		"keiyakeiya/PapilioDehaanii.vim",
+	},
+	{
 		"craftzdog/solarized-osaka.nvim",
 		lazy = true,
 		priority = 0,
@@ -12,12 +34,12 @@ return {
 	-- Themes
 	{
 		"rose-pine/neovim",
-		name = "rose-pine",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			vim.cmd("colorscheme rose-pine")
-		end,
+		-- name = "rose-pine",
+		-- lazy = false,
+		-- priority = 1000,
+		-- config = function()
+		-- 	vim.cmd("colorscheme rose-pine")
+		-- end,
 	},
 	{
 		"xero/miasma.nvim",

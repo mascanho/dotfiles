@@ -54,6 +54,10 @@ return {
 			},
 			"nvim-telescope/telescope-file-browser.nvim",
 		},
+		defaults = {
+
+			file_ignore_patterns = { "%.git/", "%.hg/", "%.cache/", "%.DS_Store", "%._" },
+		},
 		keys = {
 			{
 				"<leader>fP",
@@ -70,6 +74,7 @@ return {
 					local builtin = require("telescope.builtin")
 					builtin.find_files({
 						no_ignore = false,
+						find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
 						hidden = true,
 					})
 				end,
@@ -157,6 +162,7 @@ return {
 				layout_config = { prompt_position = "top" },
 				sorting_strategy = "ascending",
 				winblend = 0,
+				file_ignore_patterns = { "%.git/", "%.hg/", "%.cache/", "%.DS_Store", "%._" },
 				mappings = {
 					n = {},
 				},

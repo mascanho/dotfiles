@@ -79,11 +79,17 @@ vim.keymap.set({ "n", "v" }, "<leader>d", '"+d') -- delete motion
 vim.keymap.set("n", "<leader>p", '"+p') -- paste after cursor
 vim.keymap.set("n", "<leader>P", '"+P') -- paste before cursor
 
--- Move lines like VScode
--- vim.keymap.set("n", "<C-[>", ":m .-2<CR>==") -- move line down(n)
--- vim.keymap.set("n", "<C-]>", ":m .+1<CR>==") -- move line up(n)
--- vim.keymap.set("v", "<C-[>", ":m '>+1<CR>gv=gv") -- move line up(v)
--- vim.keymap.set("v", "<C-]>", ":m '<-2<CR>gv=gv") -- move line down(v)
-
 -- Oil keymaps
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+-- Remap for dealing with word wrap
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- New tab
+vim.keymap.set("n", "tn", ":tabnew %<CR>", { desc = "New tab" })
+vim.keymap.set("n", "tc", ":tabclose<CR>", { desc = "Close tab" })
+
+-- Move lines
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line up" })
