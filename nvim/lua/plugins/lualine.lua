@@ -1,89 +1,148 @@
--- nerdfont: powerline icons have the prefix 'ple-'
-local bottomSeparators = { left = "", right = "" }
-local topSeparators = { left = "", right = "" }
-local emptySeparators = { left = "", right = "" }
+-- Eviline config for lualine
+-- Author: shadmansaleh
+-- Credit: glepnir
+-- MIT license, see LICENSE for more details.
 
-local workin_dir = function()
-	local file_path = vim.fn.expand("%:p:h") -- get the full path of the directory containing the current file
-	local folder_name = file_path:match(".*/([^/]+)$") or ""
-	return folder_name
-end
 
-local M = {
-	"nvim-lualine/lualine.nvim",
-	event = "VeryLazy",
+-- Custom Kanagawa themed colors
+-- Stylua has no default kanagawa theme so i made my own
+-- Gruvbox would work but it was too bright for me
+
+-- stylua: ignore
+return {
+  "nvim-lualine/lualine.nvim",
+  config = function()
+    local colors = {
+      bg = '#1f1f28',           -- sumiInk
+      fg = '#dcd7ba',           -- foam
+      blue = '#7fb4ca',         -- springBlue
+      darkblue = '#223249',     -- waveBlue
+      yellow = '#e0af68',       -- springYellow
+      pink = '#d27e99',         -- sakuraPink
+    }
+
+    local conditions = {
+      buffer_not_empty = function()
+        return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
+      end,
+      hide_in_width = function()
+        return vim.fn.winwidth(0) > 80
+      end,
+    }
+
+    local config = {
+      options = {
+        component_separators = "",
+        section_separators = "",
+        ignore_focus = {},
+        always_divide_middle = true,
+        globalstatus = true,
+        refresh = {
+          statusline = 1000,
+          tabline = 1000,
+          winbar = 1000,
+        },
+        theme = {
+          normal = { c = { fg = colors.fg, bg = colors.bg } },
+          inactive = { c = { fg = colors.fg, bg = colors.bg } },
+        },
+      },
+      sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {},
+      },
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {},
+      },
+    }
+
+    local function ins_left(component)
+      table.insert(config.sections.lualine_c, component)
+    end
+
+    local function ins_right(component)
+      table.insert(config.sections.lualine_x, component)
+    end
+
+    -- left
+    ins_left {
+      function()
+        return '▊'
+      end,
+      color = { fg = colors.yellow},
+      padding = { left = 0, right = 1 },
+    }
+    ins_left {
+      'mode',
+      color = function()
+        local mode_color = {
+          n = colors.pink,
+          i = colors.yellow,
+          v = colors.blue,
+          [''] = colors.blue,
+          V = colors.blue,
+        }
+        return { fg = mode_color[vim.fn.mode()] or colors.pink }
+      end,
+      padding = { right = 1 }
+    }
+    ins_left {
+    'branch',
+    icon = '',
+    color = { fg = colors.blue, gui = 'bold' },
+    }
+    -- ins_left { 'location' }
+    ins_left {
+      'filename',
+      cond = conditions.buffer_not_empty,
+      color = { fg = colors.yellow, gui = 'bold' },
+    }
+
+    -- right
+    -- ins_right {
+    --   'fileformat',
+    --   fmt = string.upper,
+    --   icons_enabled = true,
+    --   color = { fg = colors.yellow, gui = 'bold' },
+    -- }
+    ins_right {
+      'diagnostics',
+      sources = { 'nvim_diagnostic' },
+      symbols = { error = ' ', warn = ' ', info = ' ' },
+      diagnostics_color = {
+        error = { fg = colors.pink },
+        warn = { fg = colors.yellow },
+        info = { fg = colors.blue },
+      },
+    }
+    ins_right { 'filetype' }
+    ins_right {
+      'progress',
+      color = { fg = colors.fg, gui = 'bold' }
+    }
+    ins_right {
+      function()
+        return os.date("%H:%M")
+      end,
+      color = { fg = colors.blue, gui = 'bold' }
+    }
+    ins_right {
+      function()
+        return '▊'
+      end,
+      color = { fg = colors.yellow},
+      padding = { left = 1 },
+    }
+
+    require('lualine').setup(config)
+  end
 }
-
-function M.config()
-	local sl_hl = vim.api.nvim_get_hl_by_name("StatusLine", true)
-	vim.api.nvim_set_hl(0, "Copilot", { fg = "#6CC644", bg = sl_hl.background })
-	-- local icons = require "user.icons"
-	local diff = {
-		"diff",
-		colored = true,
-		-- symbols = { added = icons.git.LineAdded, modified = icons.git.LineModified, removed = icons.git.LineRemoved }, -- Changes the symbols used by the diff.
-	}
-
-	local copilot = function()
-		local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
-		if #buf_clients == 0 then
-			return "LSP Inactive"
-		end
-
-		local buf_client_names = {}
-		local copilot_active = false
-
-		for _, client in pairs(buf_clients) do
-			if client.name ~= "null-ls" and client.name ~= "copilot" then
-				table.insert(buf_client_names, client.name)
-			end
-
-			if client.name == "copilot" then
-				copilot_active = true
-			end
-		end
-	end
-
-	require("lualine").setup({
-
-		options = {
-			-- component_separators = { left = "", right = "" },
-			-- section_separators = { left = "", right = "" },
-			component_separators = { left = "", right = "" },
-			section_separators = { left = "", right = "" },
-			globalstatus = true,
-			-- ignore_focus = { "NvimTree" },
-			always_divide_middle = true,
-			icons_enabled = true,
-			-- theme = "solarized_dark",
-		},
-		sections = {
-			-- lualine_a = { { "branch", icon = "" } },
-			-- lualine_b = { "location" },
-			-- lualine_c = { "diagnostics" },
-			-- lualine_x = { copilot },
-			-- lualine_y = { "filetype" },
-			-- lualine_z = { "progress" },
-			lualine_a = { "mode" },
-			lualine_b = { "branch", diff },
-			lualine_c = {
-				{
-					workin_dir,
-					icon = "",
-					color = { gui = "bold", fg = "pink" },
-					separator = "--",
-					padding = { left = 1, right = 1 },
-					section_separators = { left = "", right = "" },
-				},
-			},
-			lualine_x = { "diagnostics" },
-			lualine_y = { "filetype" },
-			lualine_z = {
-				"progress",
-			},
-		},
-		extensions = { "quickfix", "man", "fugitive" },
-	})
-end
-
-return M

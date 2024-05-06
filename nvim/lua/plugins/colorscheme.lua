@@ -1,4 +1,14 @@
 return {
+	{ "e-q/okcolors.nvim", name = "okcolors" },
+	{
+		"dgox16/oldworld.nvim",
+		lazy = false,
+		priority = 1000,
+		config = true,
+	},
+	{
+		"myypo/borrowed.nvim",
+	},
 	{
 		"b0o/lavi.nvim",
 		dependencies = { "rktjmp/lush.nvim" },
