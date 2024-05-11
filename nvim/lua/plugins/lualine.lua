@@ -19,6 +19,7 @@ return {
       darkblue = '#223249',     -- waveBlue
       yellow = '#e0af68',       -- springYellow
       pink = '#d27e99',         -- sakuraPink
+      green = "#C1E1C1"
     }
 
     local conditions = {
@@ -43,8 +44,8 @@ return {
           winbar = 1000,
         },
         theme = {
-          normal = { c = { fg = colors.fg, bg = colors.bg } },
-          inactive = { c = { fg = colors.fg, bg = colors.bg } },
+          normal = { c = { fg = colors.fg, bg = colors.bg, gui = '' } },
+          inactive = { c = { fg = colors.fg, bg = colors.bg, gui = '' } },
         },
       },
       sections = {
@@ -64,6 +65,9 @@ return {
         lualine_z = {},
       },
     }
+
+
+
 
     local function ins_left(component)
       table.insert(config.sections.lualine_c, component)
@@ -91,20 +95,22 @@ return {
           [''] = colors.blue,
           V = colors.blue,
         }
-        return { fg = mode_color[vim.fn.mode()] or colors.pink }
+        return { fg = mode_color[vim.fn.mode()] or colors.pink, gui = '' }
       end,
       padding = { right = 1 }
     }
     ins_left {
     'branch',
     icon = '',
-    color = { fg = colors.blue, gui = 'bold' },
+    color = { fg = colors.blue, gui = '' },
     }
     -- ins_left { 'location' }
     ins_left {
       'filename',
       cond = conditions.buffer_not_empty,
-      color = { fg = colors.yellow, gui = 'bold' },
+      icon = { " ", align = 'left', padding = { left = 0, right = 1 }, color = { fg = colors.green, gui = '' } }, 
+      padding = { left = 2, right = 0 }, 
+      color = { fg = colors.yellowm, gui = '' },
     }
 
     -- right
@@ -124,16 +130,17 @@ return {
         info = { fg = colors.blue },
       },
     }
-    ins_right { 'filetype' }
+    ins_right { 'filetype', color = { fg = colors.fg, gui = '' } }
     ins_right {
       'progress',
-      color = { fg = colors.fg, gui = 'bold' }
+      color = { fg = colors.fg, gui = '' },
+      
     }
     ins_right {
       function()
         return os.date("%H:%M")
       end,
-      color = { fg = colors.blue, gui = 'bold' }
+      color = { fg = colors.blue, gui = '' }
     }
     ins_right {
       function()

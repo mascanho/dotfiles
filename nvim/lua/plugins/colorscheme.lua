@@ -5,6 +5,7 @@ return {
 		lazy = false,
 		priority = 1000,
 		config = true,
+		transparent = true,
 	},
 	{
 		"myypo/borrowed.nvim",
