@@ -80,7 +80,7 @@ vim.keymap.set("n", "<leader>p", '"+p') -- paste after cursor
 vim.keymap.set("n", "<leader>P", '"+P') -- paste before cursor
 
 -- Oil keymaps
-vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+vim.keymap.set("n", "-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
 
 -- Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
