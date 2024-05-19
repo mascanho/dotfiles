@@ -38,10 +38,11 @@ return {
 					tabline = 1000,
 					winbar = 1000,
 				},
-				theme = {
-					normal = { c = { fg = colors.fg, bg = colors.bg, gui = "" } },
-					inactive = { c = { fg = colors.fg, bg = colors.bg, gui = "" } },
-				},
+				-- theme = {
+				-- 	normal = { c = { fg = colors.fg, bg = colors.bg, gui = "" } },
+				-- 	inactive = { c = { fg = colors.fg, bg = colors.bg, gui = "" } },
+				-- },
+				theme = "auto",
 			},
 			sections = {
 				lualine_a = {},

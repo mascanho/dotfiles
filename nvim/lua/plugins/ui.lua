@@ -36,6 +36,10 @@ return {
 				opts = { stop = false },
 			})
 
+			-- opts.messages = {
+			-- 	view_warn = false,
+			-- }
+
 			opts.commands = {
 				all = {
 					-- options for the message history that you get with `:Noice`

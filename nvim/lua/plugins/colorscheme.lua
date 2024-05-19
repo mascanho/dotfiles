@@ -1,4 +1,15 @@
 return {
+	{
+		"cdmill/neomodern.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("neomodern").setup({
+				-- optional configuration here
+			})
+			require("neomodern").load()
+		end,
+	},
 	{ "e-q/okcolors.nvim", name = "okcolors" },
 	{
 		"dgox16/oldworld.nvim",
