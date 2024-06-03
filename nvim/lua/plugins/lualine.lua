@@ -71,27 +71,27 @@ return {
 		end
 
 		-- left
-		ins_left({
-			function()
-				return "▊"
-			end,
-			color = { fg = colors.yellow },
-			padding = { left = 0, right = 1 },
-		})
-		ins_left({
-			"mode",
-			color = function()
-				local mode_color = {
-					n = colors.pink,
-					i = colors.yellow,
-					v = colors.blue,
-					[""] = colors.blue,
-					V = colors.blue,
-				}
-				return { fg = mode_color[vim.fn.mode()] or colors.pink, gui = "" }
-			end,
-			padding = { right = 1 },
-		})
+		-- ins_left({
+		-- 	function()
+		-- 		return "▊"
+		-- 	end,
+		-- 	color = { fg = colors.yellow },
+		-- 	padding = { left = 0, right = 0 },
+		-- })
+		-- ins_left({
+		-- 	"mode",
+		-- 	color = function()
+		-- 		local mode_color = {
+		-- 			n = colors.pink,
+		-- 			i = colors.yellow,
+		-- 			v = colors.blue,
+		-- 			[""] = colors.blue,
+		-- 			V = colors.blue,
+		-- 		}
+		-- 		return { fg = mode_color[vim.fn.mode()] or colors.pink, gui = "" }
+		-- 	end,
+		-- 	padding = { right = 1 },
+		-- })
 
 		ins_left({
 			"branch",
@@ -137,13 +137,13 @@ return {
 			end,
 			color = { fg = colors.blue, gui = "" },
 		})
-		ins_right({
-			function()
-				return "▊"
-			end,
-			color = { fg = colors.yellow },
-			padding = { left = 1 },
-		})
+		-- ins_right({
+		-- 	function()
+		-- 		return "▊"
+		-- 	end,
+		-- 	color = { fg = colors.yellow },
+		-- 	padding = { left = 1 },
+		-- })
 
 		require("lualine").setup(config)
 	end,

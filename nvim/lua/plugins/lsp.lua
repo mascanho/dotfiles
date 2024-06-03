@@ -41,6 +41,11 @@ return {
 		opts = {
 			inlay_hints = { enabled = true },
 			---@type lspconfig.options
+
+			-- handlers = {
+			-- 	rust_analyzer = function() end,
+			-- },
+
 			servers = {
 				cssls = {},
 				tailwindcss = {

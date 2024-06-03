@@ -1,14 +1,18 @@
 return {
+	{ "Mofiqul/vscode.nvim" },
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+	{
+		"olimorris/onedarkpro.nvim",
+		lazy = true,
+		priority = 1000,
+		config = true,
+		theme = "onedark",
+	},
+	{ "diegoulloao/neofusion.nvim", priority = 0, config = true, opts = ... },
 	{
 		"cdmill/neomodern.nvim",
 		lazy = false,
-		priority = 1000,
-		config = function()
-			require("neomodern").setup({
-				-- optional configuration here
-			})
-			require("neomodern").load()
-		end,
+		priority = 0,
 	},
 	{ "e-q/okcolors.nvim", name = "okcolors" },
 	{
@@ -39,7 +43,7 @@ return {
 		-- require("kurayami").setup(opts)
 		-- end
 	},
-	{ "dasupradyumna/midnight.nvim", lazy = false, priority = 1000 },
+	{ "dasupradyumna/midnight.nvim" },
 	{
 		"keiyakeiya/PapilioDehaanii.vim",
 	},
@@ -53,12 +57,11 @@ return {
 			}
 		end,
 	},
-	-- Themes
 	{
 		"rose-pine/neovim",
-		-- name = "rose-pine",
-		-- lazy = false,
-		-- priority = 1000,
+		name = "rose-pine",
+		lazy = false,
+		priority = 1000,
 		-- config = function()
 		-- 	vim.cmd("colorscheme rose-pine")
 		-- end,
@@ -82,13 +85,12 @@ return {
 	{
 		"sainnhe/gruvbox-material",
 	},
-	{
-		"olimorris/onedarkpro.nvim",
-	},
 	{ "projekt0n/github-nvim-theme", version = "v0.0.7" },
 	{ "marko-cerovac/material.nvim" },
 	{ "Allianaab2m/penumbra.nvim" },
-	{ "ful1e5/onedark.nvim" },
+	{
+		{ "ful1e5/onedark.nvim" },
+	},
 	{ "rebelot/kanagawa.nvim" },
 	{ "nyoom-engineering/oxocarbon.nvim" },
 	{ "arturgoms/moonbow.nvim" },
@@ -116,7 +118,7 @@ return {
 		dependencies = { "rktjmp/lush.nvim" },
 		name = "arctic",
 		branch = "main",
-		priority = 1000,
+		priority = 0,
 	},
 	{
 		"nyoom-engineering/oxocarbon.nvim",
@@ -139,7 +141,7 @@ return {
 	{
 		"AlexvZyl/nordic.nvim",
 		lazy = false,
-		priority = 1000,
+		priority = 0,
 		-- config = function()
 		--     require 'nordic' .load()
 		-- end
