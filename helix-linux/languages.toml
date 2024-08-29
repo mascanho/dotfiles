@@ -1,0 +1,162 @@
+[[language]]
+name = "rust"
+language-servers = ["rust-analyzer", "tailwdincss-ls" ]
+formatter = { command = "rustfmt" }
+auto-format = true
+indent = { tab-width = 4, unit = "t" }
+
+
+roots = [
+  "Cargo.toml",
+  "Cargo.lock"
+]
+
+[language.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+'`' = '`'
+
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+config = { check = { command = "clippy" } }
+
+
+# [language-server.rust-analyzer.config]
+inlayHints.bindingModeHints.enable = true
+inlayHints.closingBraceHints.minLines = 10
+inlayHints.closureReturnTypeHints.enable = "with_block"
+inlayHints.discriminantHints.enable = "fieldless"
+inlayHints.lifetimeElisionHints.enable = "skip_trivial"
+inlayHints.typeHints.hideClosureInitialization = false
+
+
+[[language]]
+name = "html"
+language-servers = [ "vscode-html-language-server", "tailwindcss-ls" ]
+
+[[language]]
+name = "css"
+language-servers = [ "vscode-css-language-server", "tailwindcss-ls" ]
+
+[[language]]
+name = "jsx"
+language-servers = [ "typescript-language-server", "tailwindcss-ls" ]
+
+[[language]]
+name = "tsx"
+language-servers = [ "typescript-language-server", "tailwindcss-ls" ]
+
+[[language]]
+name = "svelte"
+language-servers = [ "svelteserver", "tailwindcss-ls" ]
+
+
+# Webd evelopment stuff
+[[language]]
+ name = "typescript"
+ language-servers = [  "typescript-language-server", "tailwindcss-react", "eslint"]
+ formatter = { command = 'npx', args = ["prettier", "--parser", "typescript"] }
+ auto-format = true
+
+ [[language]]
+ name = "tsx"
+ language-servers = [ "typescript-language-server", "tailwindcss-react", "eslint", "emmet-language-server"]
+ formatter = { command = 'npx', args = ["prettier", "--parser", "typescript"] }
+ auto-format = true
+
+ [[language]]
+ name = "jsx"
+ language-servers = [ "typescript-language-server", "tailwindcss-react", "eslint"]
+ grammar = "javascript"
+ formatter = { command = 'npx', args = ["prettier", "--parser", "typescript"] }
+ auto-format = true
+
+ [[language]]
+ name = "javascript"
+ language-servers = [ "typescript-language-server", "tailwindcss-react", "eslint"]
+ formatter = { command = 'npx', args = ["prettier", "--parser", "typescript"] }
+ auto-format = true
+
+ [[language]]
+ name = "json"
+ language-servers = [ "vscode-json-language-server" ]
+ formatter = { command = 'npx', args = ["prettier", "--parser", "json"] }
+ auto-format = true
+
+ [language-server.vscode-json-language-server.config]
+ json = { validate = { enable = true }, format = { enable = true } }
+ provideFormatter = true
+
+ [language-server.vscode-css-language-server.config]
+ css = { validate = { enable = true } }
+ scss = { validate = { enable = true } }
+ less = { validate = { enable = true } }
+ provideFormatter = true
+
+ [[language]]
+ name = "html"
+ formatter = { command = 'npx', args = ["prettier", "--parser", "html"] }
+ language-servers = [ "vscode-html-language-server", "tailwindcss-react","emmet-language-server"]
+ 
+ [[language]]
+ name = "css"
+ formatter = { command = 'npx', args = ["prettier", "--parser", "css"] }
+ language-servers = [ "vscode-css-language-server", "tailwindcss-react"]
+
+ [language-server.eslint]
+ args = ["--stdio"]
+ command = "vscode-eslint-language-server"
+
+ [language-server.eslint.config]
+ format = true
+ nodePath = ""
+ onIgnoredFiles = "off"
+ packageManager = "yarn"
+ quiet = false
+ rulesCustomizations = []
+ run = "onType"
+ useESLintClass = false
+ validate = "on"
+ codeAction = { disableRuleComment = { enable = true, location = "separateLine" }, showDocumentation = { enable = true } }
+ codeActionOnSave = { mode = "all" }
+ experimental = { }
+ problems = { shortenToSingleLine = false }
+ workingDirectory = { mode = "auto" }
+
+ [language-server.emmet-language-server]
+ command="emmet-language-server"
+ args = ["--stdio"]
+
+
+ [language-server.tailwindcss-react]
+ language-id = "typescriptreact"
+ command = "tailwindcss-language-server"
+ args = ["--stdio"]
+ config = {}
+
+ [language-server.typescript-language-server.config]
+ documentFormatting = false
+ hostInfo = "helix"
+
+ [language-server.typescript-language-server.config.typescript.inlayHints]
+ includeInlayEnumMemberValueHints = true
+ includeInlayFunctionLikeReturnTypeHints = true
+ includeInlayFunctionParameterTypeHints = true
+ includeInlayParameterNameHints = "all"
+ includeInlayParameterNameHintsWhenArgumentMatchesName = true
+ includeInlayPropertyDeclarationTypeHints = true
+ includeInlayVariableTypeHints = true
+
+ [language-server.typescript-language-server.config.completions]
+completeFunctionCalls = true
+
+ [language-server.typescript-language-server.config.javascript.inlayHints]
+ includeInlayEnumMemberValueHints = true
+ includeInlayFunctionLikeReturnTypeHints = true
+ includeInlayFunctionParameterTypeHints = true
+ includeInlayParameterNameHints = "all"
+ includeInlayParameterNameHintsWhenArgumentMatchesName = true
+ includeInlayPropertyDeclarationTypeHints = true
+ includeInlayVariableTypeHints = true
