@@ -1,0 +1,51 @@
+{
+  "languages": {
+    "TSX": {
+      "show_inline_completions": true
+    }
+  },
+  "vim_mode": true,
+  "assistant": {
+    "version": "2",
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-5-sonnet-20240620"
+    }
+  },
+  "theme": "Ayu Dark",
+  "soft_wrap": "editor_width",
+  "cursor_blink": false,
+  "relative_line_numbers": false,
+  "scrollbar": {
+    "show": "never"
+  },
+  "vertical_scroll_margin": 0,
+  "tab_bar": {
+    "show": false
+  },
+  "toolbar": {
+    "breadcrumbs": true,
+    "quick_actions": false
+  },
+
+  "inlay_hints": {
+    "max_length": null,
+    "lifetime_elision_hints": {
+      "use_parameter_names": true,
+      "enable": "skip_trivial"
+    },
+    "closure_return_type_hints": {
+      "enable": "always"
+    }
+  },
+
+  "git": {
+    "inline_blame": {
+      "enabled": false
+    }
+  },
+
+  "features": {
+    "inline_completion_provider": "supermaven"
+  }
+}
