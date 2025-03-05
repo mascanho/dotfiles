@@ -1,18 +1,16 @@
 {
-  "languages": {
-    "TSX": {
-      "show_inline_completions": true
-    }
-  },
+  "show_edit_predictions": false,
+  "base_keymap": "Emacs",
+  "icon_theme": "Material Icon Theme",
   "vim_mode": true,
   "assistant": {
     "version": "2",
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-20240620"
+      "model": "claude-3-5-sonnet-latest"
     }
   },
-  "theme": "Ayu Dark",
+  "theme": "Kanagawa Dragon",
   "soft_wrap": "editor_width",
   "cursor_blink": false,
   "relative_line_numbers": false,
@@ -46,6 +44,40 @@
   },
 
   "features": {
-    "inline_completion_provider": "supermaven"
+    "edit_prediction_provider": "zed"
+  },
+  "languages": {
+    "TypeScript": {
+      "language_servers": [
+        "typescript-language-server",
+        "tailwindcss-language-server"
+      ]
+    }
+  },
+  "lsp": {
+    "typescript-language-server": {
+      "settings": {
+        "typescript": {
+          "inlayHints": {
+            "parameterNames": true,
+            "parameterTypes": true,
+            "variableTypes": true,
+            "propertyDeclarationTypes": true,
+            "functionLikeReturnTypes": true,
+            "enumMemberValues": true
+          }
+        }
+      }
+    },
+    "tailwindcss-language-server": {
+      "settings": {
+        "includeLanguages": {
+          "typescript": "html"
+        },
+        "experimental": {
+          "classRegex": ["[cls|className]\\s\\:\\=\\s\"([^\"]*)"]
+        }
+      }
+    }
   }
 }
