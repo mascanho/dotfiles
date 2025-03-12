@@ -1,0 +1,97 @@
+return {
+	{
+		"nvim-lualine/lualine.nvim", -- Lualine plugin
+		dependencies = { "nvim-tree/nvim-web-devicons" }, -- Dependency for icons
+		config = function()
+			-- Colors for the theme
+			-- stylua: ignore
+			local colors = {
+				blue   = '#80a0ff',
+				cyan   = '#79dac8',
+				black  = '#080808',
+				white  = '#c6c6c6',
+				red    = '#ff5189',
+				violet = '#d183e8',
+				grey   = '#303030',
+			}
+
+			-- Bubbles theme definition
+			local bubbles_theme = {
+				normal = {
+					a = { fg = colors.black, bg = colors.violet }, -- Mode section
+					b = { fg = colors.white, bg = colors.grey }, -- Filename and branch
+					c = { fg = colors.white }, -- Center section
+				},
+				insert = { a = { fg = colors.black, bg = colors.blue } }, -- Insert mode
+				visual = { a = { fg = colors.black, bg = colors.cyan } }, -- Visual mode
+				replace = { a = { fg = colors.black, bg = colors.red } }, -- Replace mode
+				inactive = {
+					a = { fg = colors.white, bg = colors.black }, -- Inactive mode
+					b = { fg = colors.white, bg = colors.black },
+					c = { fg = colors.white },
+				},
+			}
+
+			-- Lualine setup
+			require("lualine").setup({
+				options = {
+					theme = bubbles_theme, -- Use the bubbles theme
+					component_separators = "", -- No component separators
+					section_separators = { left = "", right = "" }, -- Rounded section separators
+					globalstatus = true, -- Global statusline for Neovim >= 0.7
+				},
+				sections = {
+					-- Left sections
+					lualine_a = {
+						{ "mode", separator = { left = "" }, right_padding = 2 }, -- Mode with rounded left corner
+					},
+					lualine_b = {
+						{ "filename", separator = { left = "", right = "" }, padding = { left = 1, right = 1 } }, -- Filename with rounded corners
+						{
+							"branch",
+							icon = "",
+							separator = { left = "", right = "" },
+							padding = { left = 1, right = 1 },
+						}, -- Branch with rounded corners
+					},
+					lualine_c = {
+						"%=", -- Align to the left
+						{
+							"diagnostics", -- Diagnostics (errors, warnings, info)
+							sources = { "nvim_diagnostic" },
+							symbols = { error = " ", warn = " ", info = " " },
+							separator = { left = "", right = "" },
+							padding = { left = 1, right = 1 },
+							colored = true,
+						},
+					},
+					-- Right sections
+					lualine_x = {},
+					lualine_y = {
+						{ "filetype", separator = { left = "", right = "" }, padding = { left = 1, right = 1 } }, -- Filetype with rounded corners
+						{ "progress", separator = { left = "", right = "" }, padding = { left = 1, right = 1 } }, -- Progress with rounded corners
+					},
+					lualine_z = {
+						{ "location", separator = { right = "" }, left_padding = 2 }, -- Location with rounded right corner
+					},
+				},
+				inactive_sections = {
+					-- Inactive left sections
+					lualine_a = {
+						{ "filename", separator = { left = "", right = "" }, padding = { left = 1, right = 1 } }, -- Filename with rounded corners
+					},
+					lualine_b = {},
+					lualine_c = {},
+					-- Inactive right sections
+					lualine_x = {},
+					lualine_y = {},
+					lualine_z = {
+						{ "location", separator = { right = "" }, left_padding = 2 }, -- Location with rounded right corner
+					},
+				},
+				tabline = {}, -- No tabline
+				extensions = {}, -- No extensions
+			})
+		end,
+	},
+}
